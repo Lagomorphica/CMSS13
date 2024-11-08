@@ -1609,6 +1609,24 @@
 			QDEL_NULL(legcuffed)
 			handcuff_update()
 		return
+	if(isyautja(src))
+		visible_message(SPAN_DANGER("[src] is attempting to break out of [restraint]..."), \
+		SPAN_NOTICE("You use your superior Yautja strength to start breaking [restraint]..."))
+		if(!do_after(src, 10, INTERRUPT_NO_NEEDHAND^INTERRUPT_RESIST, BUSY_ICON_HOSTILE))
+			return
+
+		if(!restraint || buckled)
+			return
+		visible_message(SPAN_DANGER("[src] tears [restraint] in half!"), \
+			SPAN_NOTICE("You tear [restraint] in half!"))
+		restraint = null
+		if(handcuffed)
+			QDEL_NULL(handcuffed)
+			handcuff_update()
+		else
+			QDEL_NULL(legcuffed)
+			handcuff_update()
+		return
 	if(species.can_shred(src))
 		can_break_cuffs = TRUE
 	if(can_break_cuffs) //Don't want to do a lot of logic gating here.
